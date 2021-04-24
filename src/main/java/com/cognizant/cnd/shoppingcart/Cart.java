@@ -23,7 +23,7 @@ public class Cart {
         double sum = 0.0;
         for (Item i : lineItems
         ) {
-            sum += i.getPrice();
+            sum += i.getPrice() * i.getQuantity();
         }
         return sum;
     }
@@ -40,5 +40,14 @@ public class Cart {
 
     public void removeItem(Item item){
         lineItems.remove(item);
+    }
+
+    public String getItemizedList(){
+        String output = "";
+        for (Item i:lineItems
+             ) {
+                output+= "[" + "Price :" + i.getPrice() +","+ "Quantity :" + i.getQuantity() + "]";
+        }
+        return output;
     }
 }

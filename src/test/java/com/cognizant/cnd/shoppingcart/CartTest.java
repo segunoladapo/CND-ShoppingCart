@@ -22,9 +22,9 @@ public class CartTest {
 
     @Test
     void testSubTotal() {
-        double expected = 8.0;
-        Item myItem = new Item("Fruits", 5.0,true);
-        Item myItem2 = new Item("Glue", 3.0, true);
+        double expected = 16.0;
+        Item myItem = new Item("Fruits", 5.0,true,2);
+        Item myItem2 = new Item("Glue", 3.0, true,2);
         cart.addAllItems(myItem, myItem2);
         assertEquals(expected, cart.getSubTotal());
     }
@@ -32,8 +32,8 @@ public class CartTest {
     @Test
     void testUpdateQuantity() {
         double expected = 2;
-        Item myItem = new Item("Fruits", 5.0, true);
-        Item myItem2 = new Item("Glue", 3.0, true);
+        Item myItem = new Item("Fruits", 5.0, true,1);
+        Item myItem2 = new Item("Glue", 3.0, true,2);
         cart.addAllItems(myItem, myItem2);
         assertEquals(expected, cart.itemCount());
     }
@@ -41,9 +41,9 @@ public class CartTest {
     @Test
     void testHighLightedItem() {
         String expectedHighlighted = "[Fruits][Glue]";
-        Item myItem = new Item("Fruits", 5.0, true);
-        Item myItem2 = new Item("Glue", 3.0, true);
-        Item myItem3 = new Item("GiftCard", 5.0, false);
+        Item myItem = new Item("Fruits", 5.0, true,1);
+        Item myItem2 = new Item("Glue", 3.0, true,2);
+        Item myItem3 = new Item("GiftCard", 5.0, false,3);
         cart.addAllItems(myItem, myItem2, myItem3);
         assertEquals(expectedHighlighted, cart.printHighlighted());
     }
@@ -51,12 +51,22 @@ public class CartTest {
     @Test
     void testRemoveItem() {
         int count = 2;
-        Item myItem = new Item("Fruits", 5.0, true);
-        Item myItem2 = new Item("Glue", 3.0, true);
-        Item myItem3 = new Item("GiftCard", 5.0, false);
+        Item myItem = new Item("Fruits", 5.0, true,2);
+        Item myItem2 = new Item("Glue", 3.0, true,2);
+        Item myItem3 = new Item("GiftCard", 5.0, false,3);
         cart.addAllItems(myItem, myItem2, myItem3);
         cart.removeItem(myItem3);
         assertEquals(count, cart.itemCount());
+    }
+
+    @Test
+    void testItemizedList(){
+        String output = "[Price :5.0,Quantity :2][Price :3.0,Quantity :2][Price :5.0,Quantity :3]";
+        Item myItem = new Item("Fruits", 5.0, true,2);
+        Item myItem2 = new Item("Glue", 3.0, true,2);
+        Item myItem3 = new Item("GiftCard", 5.0, false,3);
+        cart.addAllItems(myItem,myItem2,myItem3);
+        assertEquals(output,cart.getItemizedList());
     }
 
 }

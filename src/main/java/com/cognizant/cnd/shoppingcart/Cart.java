@@ -7,24 +7,38 @@ import java.util.List;
 public class Cart {
     List<Item> lineItems = new ArrayList<>();
 
-    public void addItem(Item item){
+    public void addItem(Item item) {
         lineItems.add(item);
     }
 
-    public void addAllItems(Item... items){
+    public void addAllItems(Item... items) {
         lineItems.addAll(Arrays.asList(items));
     }
 
-    public int itemCount(){
+    public int itemCount() {
         return lineItems.size();
     }
 
-    public double getSubTotal(){
+    public double getSubTotal() {
         double sum = 0.0;
-        for (Item i: lineItems
-             ) {
-                sum += i.getPrice();
+        for (Item i : lineItems
+        ) {
+            sum += i.getPrice();
         }
         return sum;
+    }
+
+    public String printHighlighted() {
+        String output = "";
+        for (Item i : lineItems
+        ) {
+            if (i.isOnSale())
+                output += "[" + i.getName() + "]";
+        }
+        return output;
+    }
+
+    public void removeItem(Item item){
+        lineItems.remove(item);
     }
 }
